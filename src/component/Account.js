@@ -30,7 +30,7 @@ class Account extends Component {
                 <div className="dropdown-menu" aria-labelledby="navbarDropdownAccount">
                     <Link className="dropdown-item" to="/profile/buyer">Profile</Link>
                     <Link className="dropdown-item" to="/cart">Cart</Link>
-                    {/* <Link className="dropdown-item" to="/transaction">Transaction</Link> */}
+                    <Link className="dropdown-item" to="/transaction">Transaction</Link>
                 </div>
             </li>
             <li className="nav-item active">

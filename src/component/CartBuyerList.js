@@ -30,7 +30,7 @@ class CartBuyerList extends Component {
                         const unit_price = item.unit_price;
                         const price = item.price;
                         const status = item.status;
-                    return <CartBuyerItem key={key} id={id} img={img} name={name} quantities={quantity} unit_price={unit_price} price={price} statuses={status}/>
+                    return <CartBuyerItem key={key} id={id} img={img} name={name} qty={quantity} unit_price={unit_price} price={price} stat={status}/>
                     })}
                 </tbody>
             </table>

@@ -2,50 +2,71 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect} from 'react-router-dom'
 import {withRouter} from "react-router-dom";
+import { Link } from "react-router-dom";
 
+import TransactionList from "../component/TransactionList"
 import { connect } from "unistore/react"
 import { actions } from "../store"
 
+
 const localProxy = "http://localhost:8010/proxy"
-const baseUrl = "http://localhost:5000"
+// const baseUrl = "http://localhost:5000"
 
 class Transaction extends Component {
+    constructor(props){
+        super(props);
     
-    doPostTransaction = (e) =>{
-        this.props.postAddTransaction(e)
+        this.state = {
+            list_transaction: []
+        }
     }
+
+    componentDidMount(){
+        this.getTransactionByBuyer()
+    }
+    async getTransactionByBuyer() {
+        const self = this
+        await axios
+        .get(localProxy+"/transaction", {
+            params : {
+                p:1, rp:128
+            },
+            headers: {
+                Authorization: 'Bearer ' + this.props.token,
+                'Content-Type': 'application/json'
+            }
+        },
+        
+        
+        )
+        .then(function(response){
+        const data = response.data.data
+        self.setState({list_transaction: data})
+        })
+        console.log("wooi",self.state)
+    };
     render() {
         if(this.props.is_login){
             return (
-            <section id="detail">
-                <hr/>
-                <h3 className="text-secondary text-center">Checkout Transaction</h3>
-                <hr/>
-                <div className="row mx-1 justify-content-center">
-                <div className="col-md-6 col-12 my-5 shadow-lg">
-                    <form className="p-2" onSubmit={e => e.preventDefault()}>
-                    
-                    <div className="form-group">
-                        <label htmlFor="shipping_address">Shipping Address</label>
-                        <textarea className="form-control" id="shipping_address" name="shipping_address" rows="5" placeholder="Enter Shipping Address" onChange={e => this.props.setField(e)}></textarea>
+                <section id="product">
+                    {/* <Category/> */}
+                    <hr/>
+                    <h3 className="text-secondary text-center">Your Transaction History</h3>
+                    <hr/>
+                    <div className="row mx-1 justify-content-center">
+                    <div className="col-md-10 col-12">
+                        <Link to="/checkout" className="btn btn-outline-success">Checkout Transaction</Link>
+                        <TransactionList list_transaction={this.state.list_transaction} />
                     </div>
-                    
-                    <button className="btn btn-primary" onClick={(e) => this.doPostTransaction(e)} value={this.props.match.params.id}>Submit</button>
-                    </form>
-                </div>
-                </div>
-
-            </section>
+                    </div>
+                </section>
             );
-        } 
+        }
         else {
-            // alert("Anda sudah login")
             return <Redirect to={{pathname: "/"}}/>
         }
-        
     }
 }
 
-// export default Login;
-export default connect("is_login, token, name,brand,category,prod_description,stock,price,discount,picture",actions)(withRouter(Transaction));
-    
+// export default Transaction;
+export default connect("is_login, token",actions)(withRouter(Transaction));

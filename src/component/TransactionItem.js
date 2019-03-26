@@ -14,14 +14,10 @@ class CartBuyerItem extends Component {
     console.log("wah",this.props.status)
     return (
     <tr>
-      <th scope="row">{this.props.id}</th>
-      <td><img src={this.props.img} className="card-img" alt="Backpack"/> </td>
-      <td>{this.props.name}</td>
-      <td>{this.props.qty}</td>
-      <td>Rp{this.props.unit_price}</td>
-      <td>Rp{this.props.price}</td>
-      <td>{this.props.stat}</td>
-      <td><Link to={"/editcart/"+this.props.id} status={this.props.status} className="btn btn-outline-info">Edit Cart</Link><button type="submit" onClick={(e) => this.doDeleteCart(e)} value={this.props.id} className="btn btn-outline-danger">Delete Cart</button></td>
+      <th scope="row">{this.props.transaction_id}</th>
+      <td>Rp{this.props.total_payment}</td>
+      <td>{this.props.shipping_address}</td>
+      {/* <td><Link to={"/editcart/"+this.props.id} className="btn btn-outline-info">Edit Cart</Link><button type="submit" onClick={(e) => this.doDeleteCart(e)} value={this.props.id} className="btn btn-outline-danger">Delete Cart</button></td> */}
     </tr>
     );
   }

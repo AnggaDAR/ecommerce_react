@@ -20,6 +20,7 @@ import EditProduct from "../pages/EditProduct";
 import Cart from "../pages/Cart";
 import EditCart from "../pages/EditCart";
 import Transaction from "../pages/Transaction";
+import Checkout from "../pages/Checkout";
 
 const MainRoute = () => {
     return (
@@ -49,6 +50,7 @@ const MainRoute = () => {
             <Route path="/cart" component = {Cart}/>
             <Route path="/editcart/:id" component = {EditCart}/>
             <Route path="/transaction" component = {Transaction}/>
+            <Route path="/checkout" component = {Checkout}/>
 
             <Route component = {NotFound}/>
         </Switch>
